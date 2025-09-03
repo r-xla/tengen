@@ -1,0 +1,19 @@
+Package: tengen
+Title: Tensor Generics
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Sebastian", "Fischer", , "seb.fischer@tutamail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "https://orcid.org/0000-0002-9609-3197")),
+    person("Daniel", "Falbel", , "daniel@posit.co", role = "aut",
+           comment = c(ORCID = "https://orcid.org/0009-0006-0143-2392"))
+  )
+Description: Defines S7 generics for common tensor operations.
+License: MIT + file LICENSE
+URL: https://r-xla.github.io/tengen/, https://github.com/r-xla/tengen
+BugReports: https://github.com/r-xla/tengen/issues
+Imports:
+    S7
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2.9000

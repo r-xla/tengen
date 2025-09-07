@@ -31,3 +31,6 @@ pak::pak("r-xla/tengen")
 
 * `shape()`: Different from `dim()` by also supporting 0-dimensional tensors.
 * `dtype()`: Returns the data type of the tensor.
+* `as_array()`: Converts the tensor to an R array.
+* `as_raw()`: Converts the tensor to a `raw()` vector.
+* `device()`: Returns the device of the tensor.

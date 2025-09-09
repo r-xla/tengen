@@ -65,3 +65,16 @@ as_array <- S7::new_generic("as_array", "x", function(x, ...) {
 as_raw <- S7::new_generic("as_raw", "x", function(x, ...) {
   S7::S7_dispatch()
 })
+
+#' @title Number of Dimensions
+#' @description
+#' Get the number of dimensions of a tensor.
+#' @param x (any)\cr
+#'   Object.
+#' @param ... (any)\cr
+#'   Additional arguments.
+#' @return (integer)
+#' @export
+ndims <- S7::new_generic("ndims", "x", function(x, ...) {
+  S7::S7_dispatch()
+})

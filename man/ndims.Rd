@@ -4,14 +4,11 @@
 \alias{ndims}
 \title{Number of Dimensions}
 \usage{
-ndims(x, ...)
+ndims(x)
 }
 \arguments{
 \item{x}{(any)\cr
 Object.}
-
-\item{...}{(any)\cr
-Additional arguments.}
 }
 \value{
 (integer)

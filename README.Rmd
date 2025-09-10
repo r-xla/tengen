@@ -34,4 +34,8 @@ pak::pak("r-xla/tengen")
 * `as_array()`: Converts the tensor to an R array.
 * `as_raw()`: Converts the tensor to a `raw()` vector.
 * `device()`: Returns the device of the tensor.
+
+Other functions:
+
 * `ndims()`: Returns the number of dimensions of the tensor.
+  Is implemented as `length(shape(x))`.

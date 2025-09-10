@@ -71,10 +71,8 @@ as_raw <- S7::new_generic("as_raw", "x", function(x, ...) {
 #' Get the number of dimensions of a tensor.
 #' @param x (any)\cr
 #'   Object.
-#' @param ... (any)\cr
-#'   Additional arguments.
 #' @return (integer)
 #' @export
-ndims <- S7::new_generic("ndims", "x", function(x, ...) {
-  S7::S7_dispatch()
-})
+ndims <- function(x) {
+  length(shape(x))
+}

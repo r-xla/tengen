@@ -76,3 +76,17 @@ as_raw <- S7::new_generic("as_raw", "x", function(x, ...) {
 ndims <- function(x) {
   length(shape(x))
 }
+
+class_array <- S7::new_S3_class("array")
+
+# Somehow I can't define a method for new_S3_class("array"), so
+# using this as a workaround
+
+shape_union <- S7::class_numeric | S7::class_logical | S7::class_character | S7::class_raw | S7::class_complex
+
+S7::method(shape, shape_union) <- function(x) {
+  if (is.array(x)) {
+    return(dim(x))
+  }
+  stop("shape not supported for class ", class(x)[1])
+}

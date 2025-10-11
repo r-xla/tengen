@@ -49,4 +49,4 @@ po/*~
 rsconnect/
 docs
 
-^README.html$
+README.html

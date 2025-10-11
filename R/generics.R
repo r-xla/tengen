@@ -8,9 +8,9 @@
 #' @return (`integer()`)\cr
 #'   The shape of the tensor.
 #' @export
-shape <- S7::new_generic("shape", "x", function(x, ...) {
-  S7::S7_dispatch()
-})
+shape <- function(x, ...) {
+  UseMethod("shape")
+}
 
 #' @title Data Type
 #' @description
@@ -22,9 +22,9 @@ shape <- S7::new_generic("shape", "x", function(x, ...) {
 #'   Additional arguments.
 #' @return (any)
 #' @export
-dtype <- S7::new_generic("dtype", "x", function(x, ...) {
-  S7::S7_dispatch()
-})
+dtype <- function(x, ...) {
+  UseMethod("dtype")
+}
 
 #' @title Device
 #' @description
@@ -35,9 +35,9 @@ dtype <- S7::new_generic("dtype", "x", function(x, ...) {
 #'   Additional arguments.
 #' @return (any)
 #' @export
-device <- S7::new_generic("device", "x", function(x, ...) {
-  S7::S7_dispatch()
-})
+device <- function(x, ...) {
+  UseMethod("device")
+}
 
 #' @title As Array
 #' @description
@@ -48,9 +48,9 @@ device <- S7::new_generic("device", "x", function(x, ...) {
 #'   Additional arguments.
 #' @return (any)
 #' @export
-as_array <- S7::new_generic("as_array", "x", function(x, ...) {
-  S7::S7_dispatch()
-})
+as_array <- function(x, ...) {
+  UseMethod("as_array")
+}
 
 
 #' @title As Ray
@@ -62,9 +62,9 @@ as_array <- S7::new_generic("as_array", "x", function(x, ...) {
 #'   Additional arguments.
 #' @return (any)
 #' @export
-as_raw <- S7::new_generic("as_raw", "x", function(x, ...) {
-  S7::S7_dispatch()
-})
+as_raw <- function(x, ...) {
+  UseMethod("as_raw")
+}
 
 #' @title Number of Dimensions
 #' @description
@@ -77,16 +77,7 @@ ndims <- function(x) {
   length(shape(x))
 }
 
-class_array <- S7::new_S3_class("array")
-
-# Somehow I can't define a method for new_S3_class("array"), so
-# using this as a workaround
-
-shape_union <- S7::class_numeric | S7::class_logical | S7::class_character | S7::class_raw | S7::class_complex
-
-S7::method(shape, shape_union) <- function(x) {
-  if (is.array(x)) {
-    return(dim(x))
-  }
-  stop("shape not supported for class ", class(x)[1])
+#' @export
+shape.array <- function(x, ...) {
+  dim(x)
 }

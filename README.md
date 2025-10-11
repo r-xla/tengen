@@ -8,7 +8,7 @@
 [![R-CMD-check](https://github.com/r-xla/tengen/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-xla/tengen/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-Provides S7 generics for common tensor operations.
+Provides S3 generics for common tensor operations.
 
 ## Installation
 

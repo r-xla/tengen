@@ -1,0 +1,30 @@
+# tengen
+
+Provides S3 generics for common tensor operations.
+
+## Installation
+
+``` r
+pak::pak("r-xla/tengen")
+```
+
+## Available Generics
+
+- [`shape()`](https://r-xla.github.io/tengen/reference/shape.md):
+  Different from [`dim()`](https://rdrr.io/r/base/dim.html) by also
+  supporting 0-dimensional tensors.
+- [`dtype()`](https://r-xla.github.io/tengen/reference/dtype.md):
+  Returns the data type of the tensor.
+- [`as_array()`](https://r-xla.github.io/tengen/reference/as_array.md):
+  Converts the tensor to an R array.
+- [`as_raw()`](https://r-xla.github.io/tengen/reference/as_raw.md):
+  Converts the tensor to a [`raw()`](https://rdrr.io/r/base/raw.html)
+  vector.
+- [`device()`](https://r-xla.github.io/tengen/reference/device.md):
+  Returns the device of the tensor.
+
+Other functions:
+
+- [`ndims()`](https://r-xla.github.io/tengen/reference/ndims.md):
+  Returns the number of dimensions of the tensor. Is implemented as
+  `length(shape(x))`.

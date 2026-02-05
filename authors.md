@@ -11,7 +11,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/r-xla/tengen/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/r-xla/tengen/blob/v0.1.0/DESCRIPTION)
 
 Fischer S, Falbel D (2026). *tengen: Tensor Generics*. R package version
 0.1.0, <https://r-xla.github.io/tengen/>.

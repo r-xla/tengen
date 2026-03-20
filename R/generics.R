@@ -77,6 +77,17 @@ ndims <- function(x) {
   length(shape(x))
 }
 
+#' @title Number of Elements
+#' @description
+#' Get the number of elements of a tensor.
+#' @param x (any)\cr
+#'   Object.
+#' @return (integer)
+#' @export
+nelts <- function(x) {
+  prod(shape(x))
+}
+
 #' @export
 shape.array <- function(x, ...) {
   dim(x)

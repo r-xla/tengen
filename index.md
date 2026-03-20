@@ -28,3 +28,27 @@ Other functions:
 - [`ndims()`](https://r-xla.github.io/tengen/reference/ndims.md):
   Returns the number of dimensions of the tensor. Is implemented as
   `length(shape(x))`.
+- [`nelts()`](https://r-xla.github.io/tengen/reference/nelts.md):
+  Returns the number of elements of the tensor. Is implemented as
+  `prod(shape(x))`.
+
+## Tensor Data Types
+
+tengen provides an S3 class hierarchy for representing tensor data types
+via `TensorDataType`:
+
+- [`BooleanType()`](https://r-xla.github.io/tengen/reference/BooleanType.md) -
+  Boolean (`i1` / `pred` / `bool`)
+- `IntegerType(bits)` - Signed integers (`i8`, `i16`, `i32`, `i64`)
+- `UIntegerType(bits)` - Unsigned integers (`ui8`, `ui16`, `ui32`,
+  `ui64`)
+- `FloatType(bits)` - Floating point (`f32`, `f64`)
+
+Utility functions:
+
+- `as_dtype(x)`: Convert a string (e.g. `"f32"`) or `TensorDataType` to
+  a `TensorDataType` object.
+- `is_dtype(x)`: Check whether an object is a `TensorDataType`.
+- `assert_dtype(x)`: Assert that an object is a `TensorDataType`.
+
+Data types support equality comparison with `==` and `!=`.

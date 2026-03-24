@@ -84,7 +84,7 @@
 <div class="section level2">
 <h2 id="tensor-data-types">Tensor Data Types<a class="anchor" aria-label="anchor" href="#tensor-data-types"></a>
 </h2>
-<p>tengen provides an S3 class hierarchy for representing tensor data types via <code>TensorDataType</code>:</p>
+<p>tengen provides an S3 class hierarchy for representing tensor data types via <code>DataType</code>:</p>
 <ul>
 <li>
 <code><a href="reference/BooleanType.html">BooleanType()</a></code> - Boolean (<code>i1</code> / <code>pred</code> / <code>bool</code>)</li>
@@ -98,11 +98,11 @@
 <p>Utility functions:</p>
 <ul>
 <li>
-<code>as_dtype(x)</code>: Convert a string (e.g. <code>"f32"</code>) or <code>TensorDataType</code> to a <code>TensorDataType</code> object.</li>
+<code>as_dtype(x)</code>: Convert a string (e.g. <code>"f32"</code>) or <code>DataType</code> to a <code>DataType</code> object.</li>
 <li>
-<code>is_dtype(x)</code>: Check whether an object is a <code>TensorDataType</code>.</li>
+<code>is_dtype(x)</code>: Check whether an object is a <code>DataType</code>.</li>
 <li>
-<code>assert_dtype(x)</code>: Assert that an object is a <code>TensorDataType</code>.</li>
+<code>assert_dtype(x)</code>: Assert that an object is a <code>DataType</code>.</li>
 </ul>
 <p>Data types support equality comparison with <code>==</code> and <code>!=</code>.</p>
 </div>

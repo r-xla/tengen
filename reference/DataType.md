@@ -1,0 +1,31 @@
+# DataType Base Class
+
+`DataType` is the parent S3 class for all tensor data types. All data
+type classes inherit from `DataType`, enabling cross-type comparisons
+with `==` and `!=` operators.
+
+The specific data type classes are:
+
+- [`BooleanType()`](https://r-xla.github.io/tengen/reference/BooleanType.md) -
+  Boolean (i1)
+
+- [`IntegerType()`](https://r-xla.github.io/tengen/reference/IntegerType.md) -
+  Signed integers (i8, i16, i32, i64)
+
+- [`UIntegerType()`](https://r-xla.github.io/tengen/reference/UIntegerType.md) -
+  Unsigned integers (ui8, ui16, ui32, ui64)
+
+- [`FloatType()`](https://r-xla.github.io/tengen/reference/FloatType.md) -
+  Floating point (f32, f64)
+
+## Details
+
+This is a virtual base class - you cannot create instances directly. Use
+the specific type constructors instead.
+
+## See also
+
+[`BooleanType()`](https://r-xla.github.io/tengen/reference/BooleanType.md),
+[`IntegerType()`](https://r-xla.github.io/tengen/reference/IntegerType.md),
+[`UIntegerType()`](https://r-xla.github.io/tengen/reference/UIntegerType.md),
+[`FloatType()`](https://r-xla.github.io/tengen/reference/FloatType.md)

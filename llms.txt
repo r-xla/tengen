@@ -35,7 +35,7 @@ Other functions:
 ## Tensor Data Types
 
 tengen provides an S3 class hierarchy for representing tensor data types
-via `TensorDataType`:
+via `DataType`:
 
 - [`BooleanType()`](https://r-xla.github.io/tengen/reference/BooleanType.md) -
   Boolean (`i1` / `pred` / `bool`)
@@ -46,10 +46,10 @@ via `TensorDataType`:
 
 Utility functions:
 
-- `as_dtype(x)`: Convert a string (e.g. `"f32"`) or `TensorDataType` to
-  a `TensorDataType` object.
-- `is_dtype(x)`: Check whether an object is a `TensorDataType`.
-- `assert_dtype(x)`: Assert that an object is a `TensorDataType`.
+- `as_dtype(x)`: Convert a string (e.g. `"f32"`) or `DataType` to a
+  `DataType` object.
+- `is_dtype(x)`: Check whether an object is a `DataType`.
+- `assert_dtype(x)`: Assert that an object is a `DataType`.
 
 Data types support equality comparison with `==` and `!=`.
 
@@ -59,28 +59,28 @@ Data types support equality comparison with `==` and `!=`.
 
 - [`BooleanType()`](https://r-xla.github.io/tengen/reference/BooleanType.md)
   : BooleanType
+- [`DataType`](https://r-xla.github.io/tengen/reference/DataType.md) :
+  DataType Base Class
 - [`FloatType()`](https://r-xla.github.io/tengen/reference/FloatType.md)
   : FloatType
 - [`IntegerType()`](https://r-xla.github.io/tengen/reference/IntegerType.md)
   : IntegerType (signed)
-- [`TensorDataType`](https://r-xla.github.io/tengen/reference/TensorDataType.md)
-  : TensorDataType Base Class
 - [`UIntegerType()`](https://r-xla.github.io/tengen/reference/UIntegerType.md)
   : UIntegerType
 - [`as_array()`](https://r-xla.github.io/tengen/reference/as_array.md) :
   As Array
 - [`as_dtype()`](https://r-xla.github.io/tengen/reference/as_dtype.md) :
-  Convert to TensorDataType
+  Convert to DataType
 - [`as_raw()`](https://r-xla.github.io/tengen/reference/as_raw.md) : As
   Ray
 - [`assert_dtype()`](https://r-xla.github.io/tengen/reference/assert_dtype.md)
-  : Assert TensorDataType
+  : Assert DataType
 - [`device()`](https://r-xla.github.io/tengen/reference/device.md) :
   Device
 - [`dtype()`](https://r-xla.github.io/tengen/reference/dtype.md) : Data
   Type
 - [`is_dtype()`](https://r-xla.github.io/tengen/reference/is_dtype.md) :
-  Is TensorDataType
+  Is DataType
 - [`ndims()`](https://r-xla.github.io/tengen/reference/ndims.md) :
   Number of Dimensions
 - [`nelts()`](https://r-xla.github.io/tengen/reference/nelts.md) :

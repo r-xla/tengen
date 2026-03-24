@@ -1,7 +1,7 @@
-# Is TensorDataType
+# Is DataType
 
 Check if an object is a
-[`TensorDataType`](https://r-xla.github.io/tengen/reference/TensorDataType.md).
+[`DataType`](https://r-xla.github.io/tengen/reference/DataType.md).
 
 ## Usage
 

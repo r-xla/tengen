@@ -1,6 +1,6 @@
-# Convert to TensorDataType
+# Convert to DataType
 
-Convert to TensorDataType.
+Convert to DataType.
 
 ## Usage
 
@@ -15,9 +15,9 @@ as_dtype(x)
   (any)  
   Object to convert. Can currently be a string (e.g. `"i1"`, `"i32"`,
   `"f32"`, ...) or a
-  [`TensorDataType`](https://r-xla.github.io/tengen/reference/TensorDataType.md)
+  [`DataType`](https://r-xla.github.io/tengen/reference/DataType.md)
   object.
 
 ## Value
 
-`TensorDataType`
+`DataType`

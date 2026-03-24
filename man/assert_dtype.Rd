@@ -2,7 +2,7 @@
 % Please edit documentation in R/types.R
 \name{assert_dtype}
 \alias{assert_dtype}
-\title{Assert TensorDataType}
+\title{Assert DataType}
 \usage{
 assert_dtype(x, arg = rlang::caller_arg(x))
 }
@@ -17,5 +17,5 @@ Argument name for error messages.}
 \code{NULL} (invisibly). Called for side effects.
 }
 \description{
-Assert that an object is a \code{\link{TensorDataType}}.
+Assert that an object is a \code{\link{DataType}}.
 }

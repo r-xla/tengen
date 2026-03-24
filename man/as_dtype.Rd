@@ -2,18 +2,18 @@
 % Please edit documentation in R/types.R
 \name{as_dtype}
 \alias{as_dtype}
-\title{Convert to TensorDataType}
+\title{Convert to DataType}
 \usage{
 as_dtype(x)
 }
 \arguments{
 \item{x}{(any)\cr
 Object to convert.
-Can currently be a string (e.g. \code{"i1"}, \code{"i32"}, \code{"f32"}, ...) or a \code{\link{TensorDataType}} object.}
+Can currently be a string (e.g. \code{"i1"}, \code{"i32"}, \code{"f32"}, ...) or a \code{\link{DataType}} object.}
 }
 \value{
-\code{TensorDataType}
+\code{DataType}
 }
 \description{
-Convert to TensorDataType.
+Convert to DataType.
 }

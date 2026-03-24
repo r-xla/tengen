@@ -35,7 +35,7 @@ Other functions:
 ## Tensor Data Types
 
 tengen provides an S3 class hierarchy for representing tensor data types
-via `TensorDataType`:
+via `DataType`:
 
 - `BooleanType()` - Boolean (`i1` / `pred` / `bool`)
 - `IntegerType(bits)` - Signed integers (`i8`, `i16`, `i32`, `i64`)
@@ -45,9 +45,9 @@ via `TensorDataType`:
 
 Utility functions:
 
-- `as_dtype(x)`: Convert a string (e.g. `"f32"`) or `TensorDataType` to
-  a `TensorDataType` object.
-- `is_dtype(x)`: Check whether an object is a `TensorDataType`.
-- `assert_dtype(x)`: Assert that an object is a `TensorDataType`.
+- `as_dtype(x)`: Convert a string (e.g. `"f32"`) or `DataType` to
+  a `DataType` object.
+- `is_dtype(x)`: Check whether an object is a `DataType`.
+- `assert_dtype(x)`: Assert that an object is a `DataType`.
 
 Data types support equality comparison with `==` and `!=`.

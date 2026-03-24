@@ -2,11 +2,11 @@
 #' @importFrom cli cli_abort
 NULL
 
-#' TensorDataType Base Class
+#' DataType Base Class
 #'
 #' @description
-#' `TensorDataType` is the parent S3 class for all tensor data types.
-#' All data type classes inherit from `TensorDataType`, enabling cross-type
+#' `DataType` is the parent S3 class for all tensor data types.
+#' All data type classes inherit from `DataType`, enabling cross-type
 #' comparisons with `==` and `!=` operators.
 #'
 #' The specific data type classes are:
@@ -20,11 +20,11 @@ NULL
 #' Use the specific type constructors instead.
 #'
 #' @seealso [BooleanType()], [IntegerType()], [UIntegerType()], [FloatType()]
-#' @name TensorDataType
+#' @name DataType
 NULL
 
 #' @export
-`==.TensorDataType` <- function(e1, e2) {
+`==.DataType` <- function(e1, e2) {
   if (is.character(e1)) {
     e1 <- as_dtype(e1)
   }
@@ -47,12 +47,12 @@ NULL
 }
 
 #' @exportS3Method cli::cli_format
-cli_format.TensorDataType <- function(x, style = NULL, ...) {
+cli_format.DataType <- function(x, style = NULL, ...) {
   as.character(x)
 }
 
 #' @export
-`!=.TensorDataType` <- function(e1, e2) {
+`!=.DataType` <- function(e1, e2) {
   !(e1 == e2) # nolint
 }
 
@@ -62,11 +62,11 @@ cli_format.TensorDataType <- function(x, style = NULL, ...) {
 #' @return `BooleanType`
 #' @export
 BooleanType <- function() {
-  structure(list(), class = c("BooleanType", "TensorDataType"))
+  structure(list(), class = c("BooleanType", "DataType"))
 }
 
 #' @export
-print.TensorDataType <- function(x, ...) {
+print.DataType <- function(x, ...) {
   cat("<", as.character(x), ">\n", sep = "")
   invisible(x)
 }
@@ -86,7 +86,7 @@ IntegerType <- function(value) {
 
   structure(
     list(value = value),
-    class = c("IntegerType", "TensorDataType")
+    class = c("IntegerType", "DataType")
   )
 }
 
@@ -105,7 +105,7 @@ UIntegerType <- function(value) {
 
   structure(
     list(value = value),
-    class = c("UIntegerType", "TensorDataType")
+    class = c("UIntegerType", "DataType")
   )
 }
 
@@ -124,7 +124,7 @@ FloatType <- function(value) {
 
   structure(
     list(value = value),
-    class = c("FloatType", "TensorDataType")
+    class = c("FloatType", "DataType")
   )
 }
 
@@ -148,20 +148,20 @@ as.character.FloatType <- function(x, ...) {
   paste0("f", x$value)
 }
 
-#' @title Is TensorDataType
+#' @title Is DataType
 #' @description
-#' Check if an object is a [`TensorDataType`].
+#' Check if an object is a [`DataType`].
 #' @param x (any)\cr
 #'   Object to check.
 #' @return `logical(1)`
 #' @export
 is_dtype <- function(x) {
-  inherits(x, "TensorDataType")
+  inherits(x, "DataType")
 }
 
-#' @title Assert TensorDataType
+#' @title Assert DataType
 #' @description
-#' Assert that an object is a [`TensorDataType`].
+#' Assert that an object is a [`DataType`].
 #' @param x (any)\cr
 #'   Object to check.
 #' @param arg (`character(1)`)\cr
@@ -171,18 +171,18 @@ is_dtype <- function(x) {
 assert_dtype <- function(x, arg = rlang::caller_arg(x)) {
   if (!is_dtype(x)) {
     cli_abort(
-      "{.arg {arg}} must be a TensorDataType (BooleanType, IntegerType, UIntegerType, or FloatType)"
+      "{.arg {arg}} must be a DataType (BooleanType, IntegerType, UIntegerType, or FloatType)"
     )
   }
 }
 
-#' @title Convert to TensorDataType
+#' @title Convert to DataType
 #' @description
-#' Convert to TensorDataType.
+#' Convert to DataType.
 #' @param x (any)\cr
 #'   Object to convert.
-#'   Can currently be a string (e.g. `"i1"`, `"i32"`, `"f32"`, ...) or a [`TensorDataType`] object.
-#' @return `TensorDataType`
+#'   Can currently be a string (e.g. `"i1"`, `"i32"`, `"f32"`, ...) or a [`DataType`] object.
+#' @return `DataType`
 #' @export
 as_dtype <- function(x) {
   UseMethod("as_dtype")
@@ -190,11 +190,11 @@ as_dtype <- function(x) {
 
 #' @export
 as_dtype.default <- function(x) {
-  cli_abort("Cannot convert {.cls {class(x)[1]}} to TensorDataType")
+  cli_abort("Cannot convert {.cls {class(x)[1]}} to DataType")
 }
 
 #' @export
-as_dtype.TensorDataType <- function(x) {
+as_dtype.DataType <- function(x) {
   x
 }
 

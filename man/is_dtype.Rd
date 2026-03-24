@@ -2,7 +2,7 @@
 % Please edit documentation in R/types.R
 \name{is_dtype}
 \alias{is_dtype}
-\title{Is TensorDataType}
+\title{Is DataType}
 \usage{
 is_dtype(x)
 }
@@ -14,5 +14,5 @@ Object to check.}
 \code{logical(1)}
 }
 \description{
-Check if an object is a \code{\link{TensorDataType}}.
+Check if an object is a \code{\link{DataType}}.
 }

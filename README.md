@@ -6,6 +6,9 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/r-xla/tengen/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-xla/tengen/actions/workflows/R-CMD-check.yaml)
+[![r-universe](https://r-xla.r-universe.dev/badges/tengen)](https://r-xla.r-universe.dev/tengen)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/tengen)](https://CRAN.R-project.org/package=tengen)
 <!-- badges: end -->
 
 Provides S3 generics for common tensor operations.
@@ -45,8 +48,8 @@ via `DataType`:
 
 Utility functions:
 
-- `as_dtype(x)`: Convert a string (e.g. `"f32"`) or `DataType` to
-  a `DataType` object.
+- `as_dtype(x)`: Convert a string (e.g. `"f32"`) or `DataType` to a
+  `DataType` object.
 - `is_dtype(x)`: Check whether an object is a `DataType`.
 - `assert_dtype(x)`: Assert that an object is a `DataType`.
 

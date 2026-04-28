@@ -1,5 +1,8 @@
 # tengen (development version)
 
+* Added `ComplexType()` to the `DataType` hierarchy. Represents
+  `complex<f32>` / `complex<f64>` (a.k.a. `c64` / `c128`).
+
 # tengen 0.2.0
 
 * Added the `DataType` class hierarchy: `BooleanType`, `IntegerType`,

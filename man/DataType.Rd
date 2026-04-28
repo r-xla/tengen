@@ -14,6 +14,7 @@ The specific data type classes are:
 \item \code{\link[=IntegerType]{IntegerType()}} - Signed integers (i8, i16, i32, i64)
 \item \code{\link[=UIntegerType]{UIntegerType()}} - Unsigned integers (ui8, ui16, ui32, ui64)
 \item \code{\link[=FloatType]{FloatType()}} - Floating point (f32, f64)
+\item \code{\link[=ComplexType]{ComplexType()}} - Complex floating point (c64, c128)
 }
 }
 \details{
@@ -21,5 +22,6 @@ This is a virtual base class - you cannot create instances directly.
 Use the specific type constructors instead.
 }
 \seealso{
-\code{\link[=BooleanType]{BooleanType()}}, \code{\link[=IntegerType]{IntegerType()}}, \code{\link[=UIntegerType]{UIntegerType()}}, \code{\link[=FloatType]{FloatType()}}
+\code{\link[=BooleanType]{BooleanType()}}, \code{\link[=IntegerType]{IntegerType()}}, \code{\link[=UIntegerType]{UIntegerType()}}, \code{\link[=FloatType]{FloatType()}},
+\code{\link[=ComplexType]{ComplexType()}}
 }

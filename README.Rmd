@@ -39,8 +39,10 @@ pak::pak("r-xla/tengen")
 
 Other functions:
 
-* `ndims()`: Returns the number of dimensions of the tensor.
+* `naxes()`: Returns the number of axes of the tensor.
   Is implemented as `length(shape(x))`.
+* `axes()`: Returns the axis indices of the tensor.
+  Is implemented as `seq_len(naxes(x))`.
 * `nelts()`: Returns the number of elements of the tensor.
   Is implemented as `prod(shape(x))`.
 

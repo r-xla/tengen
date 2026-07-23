@@ -142,6 +142,14 @@ dtype_width <- function(x) {
   dtype_entry(x)$bits
 }
 
+#' @title Category of a DataType
+#' @description
+#' The category of a [`DataType`]: one of `"bool"`, `"int"`, `"uint"`,
+#' `"float"`, or `"complex"`.
+#' @param x ([`DataType`])
+#' @return `character(1)`
+#' @seealso [is_dtype_float()] and friends for per-category predicates
+#' @export
 dtype_category <- function(x) {
   dtype_entry(x)$category
 }

@@ -47,6 +47,15 @@ test_that("dtype_width", {
   expect_error(dtype_width("f32"), "DataType")
 })
 
+test_that("dtype_category", {
+  expect_identical(dtype_category(as_dtype("bool")), "bool")
+  expect_identical(dtype_category(as_dtype("i32")), "int")
+  expect_identical(dtype_category(as_dtype("ui8")), "uint")
+  expect_identical(dtype_category(as_dtype("bf16")), "float")
+  expect_identical(dtype_category(as_dtype("c64")), "complex")
+  expect_error(dtype_category("f32"), "DataType")
+})
+
 test_that("category predicates", {
   expect_true(is_dtype_bool(as_dtype("bool")))
   expect_true(is_dtype_int(as_dtype("i32")))

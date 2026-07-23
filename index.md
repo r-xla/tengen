@@ -35,20 +35,26 @@ Other functions:
 
 ## Tensor Data Types
 
-tengen provides an S3 class hierarchy for representing tensor data types
-via `DataType`:
+tengen provides `DataType`, an enum-style S3 class representing a tensor
+element type. There is one singleton object per supported dtype,
+wrapping its canonical string. The members are:
 
-- `BooleanType()` - Boolean (`i1` / `pred` / `bool`)
-- `IntegerType(bits)` - Signed integers (`i8`, `i16`, `i32`, `i64`)
-- `UIntegerType(bits)` - Unsigned integers (`ui8`, `ui16`, `ui32`,
-  `ui64`)
-- `FloatType(bits)` - Floating point (`f32`, `f64`)
+- boolean: `bool` (aliases `i1`, `pred`)
+- signed integers: `i8`, `i16`, `i32`, `i64`
+- unsigned integers: `ui8`, `ui16`, `ui32`, `ui64`
+- floats: `f16`, `bf16`, `f32`, `f64`
+- complex: `c64`, `c128`
 
-Utility functions:
+Construct and inspect data types with:
 
 - `as_dtype(x)`: Convert a string (e.g. `"f32"`) or `DataType` to a
   `DataType` object.
 - `is_dtype(x)`: Check whether an object is a `DataType`.
 - `assert_dtype(x)`: Assert that an object is a `DataType`.
+- `dtype_width(x)`: The width of one element in bits.
+- `dtype_category(x)`: The category, one of `"bool"`, `"int"`, `"uint"`,
+  `"float"`, or `"complex"`.
+- `is_dtype_float(x)`, `is_dtype_int(x)`, `is_dtype_uint(x)`,
+  `is_dtype_bool(x)`, `is_dtype_complex(x)`: Per-category predicates.
 
 Data types support equality comparison with `==` and `!=`.

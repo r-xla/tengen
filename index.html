@@ -84,18 +84,19 @@
 <div class="section level2">
 <h2 id="tensor-data-types">Tensor Data Types<a class="anchor" aria-label="anchor" href="#tensor-data-types"></a>
 </h2>
-<p>tengen provides an S3 class hierarchy for representing tensor data types via <code>DataType</code>:</p>
+<p>tengen provides <code>DataType</code>, an enum-style S3 class representing a tensor element type. There is one singleton object per supported dtype, wrapping its canonical string. The members are:</p>
 <ul>
-<li>
-<code>BooleanType()</code> - Boolean (<code>i1</code> / <code>pred</code> / <code>bool</code>)</li>
-<li>
-<code>IntegerType(bits)</code> - Signed integers (<code>i8</code>, <code>i16</code>, <code>i32</code>, <code>i64</code>)</li>
-<li>
-<code>UIntegerType(bits)</code> - Unsigned integers (<code>ui8</code>, <code>ui16</code>, <code>ui32</code>, <code>ui64</code>)</li>
-<li>
-<code>FloatType(bits)</code> - Floating point (<code>f32</code>, <code>f64</code>)</li>
+<li>boolean: <code>bool</code> (aliases <code>i1</code>, <code>pred</code>)</li>
+<li>signed integers: <code>i8</code>, <code>i16</code>, <code>i32</code>, <code>i64</code>
+</li>
+<li>unsigned integers: <code>ui8</code>, <code>ui16</code>, <code>ui32</code>, <code>ui64</code>
+</li>
+<li>floats: <code>f16</code>, <code>bf16</code>, <code>f32</code>, <code>f64</code>
+</li>
+<li>complex: <code>c64</code>, <code>c128</code>
+</li>
 </ul>
-<p>Utility functions:</p>
+<p>Construct and inspect data types with:</p>
 <ul>
 <li>
 <code>as_dtype(x)</code>: Convert a string (e.g. <code>"f32"</code>) or <code>DataType</code> to a <code>DataType</code> object.</li>
@@ -103,6 +104,12 @@
 <code>is_dtype(x)</code>: Check whether an object is a <code>DataType</code>.</li>
 <li>
 <code>assert_dtype(x)</code>: Assert that an object is a <code>DataType</code>.</li>
+<li>
+<code>dtype_width(x)</code>: The width of one element in bits.</li>
+<li>
+<code>dtype_category(x)</code>: The category, one of <code>"bool"</code>, <code>"int"</code>, <code>"uint"</code>, <code>"float"</code>, or <code>"complex"</code>.</li>
+<li>
+<code>is_dtype_float(x)</code>, <code>is_dtype_int(x)</code>, <code>is_dtype_uint(x)</code>, <code>is_dtype_bool(x)</code>, <code>is_dtype_complex(x)</code>: Per-category predicates.</li>
 </ul>
 <p>Data types support equality comparison with <code>==</code> and <code>!=</code>.</p>
 </div>

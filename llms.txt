@@ -29,8 +29,6 @@ Other functions:
 - [`naxes()`](https://r-xla.github.io/tengen/reference/naxes.md):
   Returns the number of axes of the tensor. Is implemented as
   `length(shape(x))`.
-- [`axes()`](https://r-xla.github.io/tengen/reference/axes.md): Returns
-  the axis indices of the tensor. Is implemented as `seq_len(naxes(x))`.
 - [`nelts()`](https://r-xla.github.io/tengen/reference/nelts.md):
   Returns the number of elements of the tensor. Is implemented as
   `prod(shape(x))`.
@@ -69,7 +67,6 @@ Data types support equality comparison with `==` and `!=`.
   Ray
 - [`assert_dtype()`](https://r-xla.github.io/tengen/reference/assert_dtype.md)
   : Assert DataType
-- [`axes()`](https://r-xla.github.io/tengen/reference/axes.md) : Axes
 - [`device()`](https://r-xla.github.io/tengen/reference/device.md) :
   Device
 - [`dtype()`](https://r-xla.github.io/tengen/reference/dtype.md) : Data

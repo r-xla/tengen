@@ -12,7 +12,6 @@
   Ray
 - [`assert_dtype()`](https://r-xla.github.io/tengen/reference/assert_dtype.md)
   : Assert DataType
-- [`axes()`](https://r-xla.github.io/tengen/reference/axes.md) : Axes
 - [`device()`](https://r-xla.github.io/tengen/reference/device.md) :
   Device
 - [`dtype()`](https://r-xla.github.io/tengen/reference/dtype.md) : Data

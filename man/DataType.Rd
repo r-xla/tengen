@@ -6,8 +6,8 @@
 \description{
 \code{DataType} is the S3 class representing a tensor element type.
 It is an enum: one singleton object per supported dtype, wrapping the
-canonical dtype string. The members are the value types of the PJRT
-C API (\code{PJRT_Buffer_Type}) the stack supports:
+canonical dtype string. The members are the element types supported by
+the r-xla stack:
 \itemize{
 \item boolean: \code{bool}
 \item signed integers: \code{i8}, \code{i16}, \code{i32}, \code{i64}

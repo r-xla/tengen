@@ -8,8 +8,8 @@ NULL
 #' @description
 #' `DataType` is the S3 class representing a tensor element type.
 #' It is an enum: one singleton object per supported dtype, wrapping the
-#' canonical dtype string. The members are the value types of the PJRT
-#' C API (`PJRT_Buffer_Type`) the stack supports:
+#' canonical dtype string. The members are the element types supported by
+#' the r-xla stack:
 #'
 #' - boolean: `bool`
 #' - signed integers: `i8`, `i16`, `i32`, `i64`

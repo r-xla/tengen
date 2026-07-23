@@ -7,11 +7,7 @@
 <url><loc>https://r-xla.github.io/tengen/authors.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/index.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/news/index.html</loc></url>
-<url><loc>https://r-xla.github.io/tengen/reference/BooleanType.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/DataType.html</loc></url>
-<url><loc>https://r-xla.github.io/tengen/reference/FloatType.html</loc></url>
-<url><loc>https://r-xla.github.io/tengen/reference/IntegerType.html</loc></url>
-<url><loc>https://r-xla.github.io/tengen/reference/UIntegerType.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/as_array.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/as_dtype.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/as_raw.html</loc></url>
@@ -19,8 +15,11 @@
 <url><loc>https://r-xla.github.io/tengen/reference/axes.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/device.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/dtype.html</loc></url>
+<url><loc>https://r-xla.github.io/tengen/reference/dtype_category.html</loc></url>
+<url><loc>https://r-xla.github.io/tengen/reference/dtype_width.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/index.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/is_dtype.html</loc></url>
+<url><loc>https://r-xla.github.io/tengen/reference/is_dtype_float.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/naxes.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/nelts.html</loc></url>
 <url><loc>https://r-xla.github.io/tengen/reference/shape.html</loc></url>

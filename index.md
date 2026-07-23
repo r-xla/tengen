@@ -40,8 +40,7 @@ Other functions:
 tengen provides an S3 class hierarchy for representing tensor data types
 via `DataType`:
 
-- [`BooleanType()`](https://r-xla.github.io/tengen/reference/BooleanType.md) -
-  Boolean (`i1` / `pred` / `bool`)
+- `BooleanType()` - Boolean (`i1` / `pred` / `bool`)
 - `IntegerType(bits)` - Signed integers (`i8`, `i16`, `i32`, `i64`)
 - `UIntegerType(bits)` - Unsigned integers (`ui8`, `ui16`, `ui32`,
   `ui64`)

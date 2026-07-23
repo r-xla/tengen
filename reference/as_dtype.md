@@ -1,6 +1,7 @@
 # Convert to DataType
 
-Convert to DataType.
+Convert to
+[`DataType`](https://r-xla.github.io/tengen/reference/DataType.md).
 
 ## Usage
 
@@ -13,8 +14,8 @@ as_dtype(x)
 - x:
 
   (any)  
-  Object to convert. Can currently be a string (e.g. `"i1"`, `"i32"`,
-  `"f32"`, ...) or a
+  A dtype string (e.g. `"f32"`, `"i64"`, `"bool"`; the aliases `"pred"`
+  and `"i1"` map to `"bool"`) or a
   [`DataType`](https://r-xla.github.io/tengen/reference/DataType.md)
   object.
 

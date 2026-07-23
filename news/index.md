@@ -2,6 +2,18 @@
 
 ## tengen (development version)
 
+- breaking: the `DataType` hierarchy (`BooleanType()`, `IntegerType()`,
+  `UIntegerType()`, `FloatType()`) is replaced by a single enum-style
+  `DataType` (adds `f16`, `bf16`, and `c64`/`c128`). Construct dtypes
+  with
+  [`as_dtype()`](https://r-xla.github.io/tengen/reference/as_dtype.md).
+- new:
+  [`dtype_width()`](https://r-xla.github.io/tengen/reference/dtype_width.md),
+  [`is_dtype_float()`](https://r-xla.github.io/tengen/reference/is_dtype_float.md),
+  [`is_dtype_int()`](https://r-xla.github.io/tengen/reference/is_dtype_float.md),
+  [`is_dtype_uint()`](https://r-xla.github.io/tengen/reference/is_dtype_float.md),
+  [`is_dtype_bool()`](https://r-xla.github.io/tengen/reference/is_dtype_float.md),
+  [`is_dtype_complex()`](https://r-xla.github.io/tengen/reference/is_dtype_float.md).
 - Renamed `ndims()` to
   [`naxes()`](https://r-xla.github.io/tengen/reference/naxes.md).
 - Added [`axes()`](https://r-xla.github.io/tengen/reference/axes.md)

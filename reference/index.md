@@ -20,14 +20,15 @@
   Ray
 - [`assert_dtype()`](https://r-xla.github.io/tengen/reference/assert_dtype.md)
   : Assert DataType
+- [`axes()`](https://r-xla.github.io/tengen/reference/axes.md) : Axes
 - [`device()`](https://r-xla.github.io/tengen/reference/device.md) :
   Device
 - [`dtype()`](https://r-xla.github.io/tengen/reference/dtype.md) : Data
   Type
 - [`is_dtype()`](https://r-xla.github.io/tengen/reference/is_dtype.md) :
   Is DataType
-- [`ndims()`](https://r-xla.github.io/tengen/reference/ndims.md) :
-  Number of Dimensions
+- [`naxes()`](https://r-xla.github.io/tengen/reference/naxes.md) :
+  Number of Axes
 - [`nelts()`](https://r-xla.github.io/tengen/reference/nelts.md) :
   Number of Elements
 - [`shape()`](https://r-xla.github.io/tengen/reference/shape.md) : Shape

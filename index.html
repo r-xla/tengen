@@ -76,7 +76,9 @@
 <p>Other functions:</p>
 <ul>
 <li>
-<code><a href="reference/ndims.html">ndims()</a></code>: Returns the number of dimensions of the tensor. Is implemented as <code>length(shape(x))</code>.</li>
+<code><a href="reference/naxes.html">naxes()</a></code>: Returns the number of axes of the tensor. Is implemented as <code>length(shape(x))</code>.</li>
+<li>
+<code><a href="reference/axes.html">axes()</a></code>: Returns the axis indices of the tensor. Is implemented as <code>seq_len(naxes(x))</code>.</li>
 <li>
 <code><a href="reference/nelts.html">nelts()</a></code>: Returns the number of elements of the tensor. Is implemented as <code>prod(shape(x))</code>.</li>
 </ul>

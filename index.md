@@ -26,9 +26,11 @@ pak::pak("r-xla/tengen")
 
 Other functions:
 
-- [`ndims()`](https://r-xla.github.io/tengen/reference/ndims.md):
-  Returns the number of dimensions of the tensor. Is implemented as
+- [`naxes()`](https://r-xla.github.io/tengen/reference/naxes.md):
+  Returns the number of axes of the tensor. Is implemented as
   `length(shape(x))`.
+- [`axes()`](https://r-xla.github.io/tengen/reference/axes.md): Returns
+  the axis indices of the tensor. Is implemented as `seq_len(naxes(x))`.
 - [`nelts()`](https://r-xla.github.io/tengen/reference/nelts.md):
   Returns the number of elements of the tensor. Is implemented as
   `prod(shape(x))`.

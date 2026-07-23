@@ -2,6 +2,11 @@
 
 ## tengen (development version)
 
+- Renamed `ndims()` to
+  [`naxes()`](https://r-xla.github.io/tengen/reference/naxes.md).
+- Added [`axes()`](https://r-xla.github.io/tengen/reference/axes.md)
+  returning the axis indices of a tensor, i.e. `seq_len(naxes(x))`.
+
 ## tengen 0.2.0
 
 - Added the `DataType` class hierarchy: `BooleanType`, `IntegerType`,

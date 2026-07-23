@@ -1,6 +1,6 @@
 Package: tengen
 Title: Tensor Generics
-Version: 0.2.0.9000
+Version: 0.3.0.9000
 Authors@R: c(
     person("Sebastian", "Fischer", , "seb.fischer@tutamail.com", role = c("aut", "cre"),
            comment = c(ORCID = "https://orcid.org/0000-0002-9609-3197")),
@@ -11,10 +11,13 @@ Description: Generic functions and common objects for working with tensors.
 License: MIT + file LICENSE
 URL: https://r-xla.github.io/tengen/, https://github.com/r-xla/tengen
 BugReports: https://github.com/r-xla/tengen/issues
+Depends:
+    R (>= 4.2.0)
 Imports:
     checkmate,
     cli,
-    rlang
+    rlang,
+    utils
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

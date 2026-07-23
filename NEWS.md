@@ -1,5 +1,11 @@
 # tengen (development version)
 
+* breaking: the `DataType` hierarchy (`BooleanType()`, `IntegerType()`,
+  `UIntegerType()`, `FloatType()`) is replaced by a single enum-style
+  `DataType` (adds `f16`, `bf16`, and `c64`/`c128`). Construct dtypes
+  with `as_dtype()`.
+* new: `dtype_width()`, `is_dtype_float()`, `is_dtype_int()`,
+  `is_dtype_uint()`, `is_dtype_bool()`, `is_dtype_complex()`.
 * Renamed `ndims()` to `naxes()`.
 * Added `axes()` returning the axis indices of a tensor, i.e. `seq_len(naxes(x))`.
 

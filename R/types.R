@@ -1,5 +1,6 @@
 #' @import checkmate
 #' @importFrom cli cli_abort
+#' @importFrom rlang %||%
 #' @importFrom utils hashtab sethash gethash
 NULL
 
@@ -66,13 +67,11 @@ build_dtype_table <- function() {
   table
 }
 
-`%??%` <- function(x, y) if (is.null(x)) y else x
-
 # The table entry for a DataType; errors on names outside the enum (which can
 # only be reached via hand-crafted objects).
 dtype_entry <- function(x) {
   assert_dtype(x)
-  gethash(dtype_table, unclass(x)) %??%
+  gethash(dtype_table, unclass(x)) %||%
     cli_abort("Unknown dtype: {unclass(x)}")
 }
 
@@ -101,7 +100,7 @@ as_dtype.DataType <- function(x) {
 #' @export
 as_dtype.character <- function(x) {
   assert_string(x)
-  entry <- gethash(dtype_table, x) %??% cli_abort("Unsupported dtype: {x}")
+  entry <- gethash(dtype_table, x) %||% cli_abort("Unsupported dtype: {x}")
   entry$object
 }
 

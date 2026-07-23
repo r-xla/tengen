@@ -17,10 +17,10 @@ NULL
 #' - floats: `f16`, `bf16`, `f32`, `f64`
 #' - complex: `c64`, `c128`
 #'
-#' Construct a `DataType` with [as_dtype()]. Inspect it with [dtype_bits()]
+#' Construct a `DataType` with [as_dtype()]. Inspect it with [dtype_width()]
 #' and the [is_dtype_float()] family of predicates.
 #'
-#' @seealso [as_dtype()], [dtype_bits()], [is_dtype_float()]
+#' @seealso [as_dtype()], [dtype_width()], [is_dtype_float()]
 #' @name DataType
 NULL
 
@@ -131,15 +131,15 @@ assert_dtype <- function(x, arg = rlang::caller_arg(x)) {
   }
 }
 
-#' @title Bit Width of a DataType
+#' @title Width of a DataType
 #' @description
-#' The number of bits of one element of the given [`DataType`].
+#' The width in bits of one element of the given [`DataType`].
 #' For `bool` this is `1`; for complex types it is the total width of the
 #' element (`c64` -> `64`).
 #' @param x ([`DataType`])
 #' @return `integer(1)`
 #' @export
-dtype_bits <- function(x) {
+dtype_width <- function(x) {
   dtype_entry(x)$bits
 }
 

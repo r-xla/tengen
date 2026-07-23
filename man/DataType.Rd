@@ -16,9 +16,9 @@ C API (\code{PJRT_Buffer_Type}) the stack supports:
 \item complex: \code{c64}, \code{c128}
 }
 
-Construct a \code{DataType} with \code{\link[=as_dtype]{as_dtype()}}. Inspect it with \code{\link[=dtype_bits]{dtype_bits()}}
+Construct a \code{DataType} with \code{\link[=as_dtype]{as_dtype()}}. Inspect it with \code{\link[=dtype_width]{dtype_width()}}
 and the \code{\link[=is_dtype_float]{is_dtype_float()}} family of predicates.
 }
 \seealso{
-\code{\link[=as_dtype]{as_dtype()}}, \code{\link[=dtype_bits]{dtype_bits()}}, \code{\link[=is_dtype_float]{is_dtype_float()}}
+\code{\link[=as_dtype]{as_dtype()}}, \code{\link[=dtype_width]{dtype_width()}}, \code{\link[=is_dtype_float]{is_dtype_float()}}
 }

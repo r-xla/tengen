@@ -36,15 +36,15 @@ test_that("as_dtype rejects unknown names and non-strings", {
   expect_error(as_dtype(c("f32", "f64")))
 })
 
-test_that("dtype_bits", {
-  expect_identical(dtype_bits(as_dtype("bool")), 1L)
-  expect_identical(dtype_bits(as_dtype("i8")), 8L)
-  expect_identical(dtype_bits(as_dtype("ui64")), 64L)
-  expect_identical(dtype_bits(as_dtype("f16")), 16L)
-  expect_identical(dtype_bits(as_dtype("bf16")), 16L)
-  expect_identical(dtype_bits(as_dtype("c64")), 64L)
-  expect_identical(dtype_bits(as_dtype("c128")), 128L)
-  expect_error(dtype_bits("f32"), "DataType")
+test_that("dtype_width", {
+  expect_identical(dtype_width(as_dtype("bool")), 1L)
+  expect_identical(dtype_width(as_dtype("i8")), 8L)
+  expect_identical(dtype_width(as_dtype("ui64")), 64L)
+  expect_identical(dtype_width(as_dtype("f16")), 16L)
+  expect_identical(dtype_width(as_dtype("bf16")), 16L)
+  expect_identical(dtype_width(as_dtype("c64")), 64L)
+  expect_identical(dtype_width(as_dtype("c128")), 128L)
+  expect_error(dtype_width("f32"), "DataType")
 })
 
 test_that("category predicates", {

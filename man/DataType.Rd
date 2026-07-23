@@ -6,16 +6,13 @@
 \description{
 \code{DataType} is the S3 class representing a tensor element type.
 It is an enum: one singleton object per supported dtype, wrapping the
-canonical dtype string. The members cover every value type of the PJRT
-C API (\code{PJRT_Buffer_Type}), except \code{TOKEN}:
+canonical dtype string. The members are the value types of the PJRT
+C API (\code{PJRT_Buffer_Type}) the stack supports:
 \itemize{
 \item boolean: \code{bool}
-\item signed integers: \code{i2}, \code{i4}, \code{i8}, \code{i16}, \code{i32}, \code{i64}
-\item unsigned integers: \code{ui2}, \code{ui4}, \code{ui8}, \code{ui16}, \code{ui32}, \code{ui64}
+\item signed integers: \code{i8}, \code{i16}, \code{i32}, \code{i64}
+\item unsigned integers: \code{ui8}, \code{ui16}, \code{ui32}, \code{ui64}
 \item floats: \code{f16}, \code{bf16}, \code{f32}, \code{f64}
-\item 8-bit floats: \code{f8e5m2}, \code{f8e4m3fn}, \code{f8e4m3b11fnuz}, \code{f8e5m2fnuz},
-\code{f8e4m3fnuz}, \code{f8e4m3}, \code{f8e3m4}, \code{f8e8m0fnu}
-\item 4-bit floats: \code{f4e2m1fn}
 \item complex: \code{c64}, \code{c128}
 }
 

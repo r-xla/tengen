@@ -2,8 +2,7 @@
 
 * breaking: the `DataType` hierarchy (`BooleanType()`, `IntegerType()`,
   `UIntegerType()`, `FloatType()`) is replaced by a single enum-style
-  `DataType` covering all PJRT C API value dtypes (adds `f16`, `bf16`, the
-  `f8*`/`f4*` types, `c64`/`c128`, and 2/4-bit integers). Construct dtypes
+  `DataType` (adds `f16`, `bf16`, and `c64`/`c128`). Construct dtypes
   with `as_dtype()`.
 * new: `dtype_bits()`, `is_dtype_float()`, `is_dtype_int()`,
   `is_dtype_uint()`, `is_dtype_bool()`, `is_dtype_complex()`.

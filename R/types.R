@@ -7,16 +7,13 @@ NULL
 #' @description
 #' `DataType` is the S3 class representing a tensor element type.
 #' It is an enum: one singleton object per supported dtype, wrapping the
-#' canonical dtype string. The members cover every value type of the PJRT
-#' C API (`PJRT_Buffer_Type`), except `TOKEN`:
+#' canonical dtype string. The members are the value types of the PJRT
+#' C API (`PJRT_Buffer_Type`) the stack supports:
 #'
 #' - boolean: `bool`
-#' - signed integers: `i2`, `i4`, `i8`, `i16`, `i32`, `i64`
-#' - unsigned integers: `ui2`, `ui4`, `ui8`, `ui16`, `ui32`, `ui64`
+#' - signed integers: `i8`, `i16`, `i32`, `i64`
+#' - unsigned integers: `ui8`, `ui16`, `ui32`, `ui64`
 #' - floats: `f16`, `bf16`, `f32`, `f64`
-#' - 8-bit floats: `f8e5m2`, `f8e4m3fn`, `f8e4m3b11fnuz`, `f8e5m2fnuz`,
-#'   `f8e4m3fnuz`, `f8e4m3`, `f8e3m4`, `f8e8m0fnu`
-#' - 4-bit floats: `f4e2m1fn`
 #' - complex: `c64`, `c128`
 #'
 #' Construct a `DataType` with [as_dtype()]. Inspect it with [dtype_bits()]
@@ -30,14 +27,10 @@ NULL
 # bit width. Order and spelling define the enum.
 dtype_info <- list(
   bool = list(category = "bool", bits = 1L),
-  i2 = list(category = "int", bits = 2L),
-  i4 = list(category = "int", bits = 4L),
   i8 = list(category = "int", bits = 8L),
   i16 = list(category = "int", bits = 16L),
   i32 = list(category = "int", bits = 32L),
   i64 = list(category = "int", bits = 64L),
-  ui2 = list(category = "uint", bits = 2L),
-  ui4 = list(category = "uint", bits = 4L),
   ui8 = list(category = "uint", bits = 8L),
   ui16 = list(category = "uint", bits = 16L),
   ui32 = list(category = "uint", bits = 32L),
@@ -46,15 +39,6 @@ dtype_info <- list(
   bf16 = list(category = "float", bits = 16L),
   f32 = list(category = "float", bits = 32L),
   f64 = list(category = "float", bits = 64L),
-  f8e5m2 = list(category = "float", bits = 8L),
-  f8e4m3fn = list(category = "float", bits = 8L),
-  f8e4m3b11fnuz = list(category = "float", bits = 8L),
-  f8e5m2fnuz = list(category = "float", bits = 8L),
-  f8e4m3fnuz = list(category = "float", bits = 8L),
-  f8e4m3 = list(category = "float", bits = 8L),
-  f8e3m4 = list(category = "float", bits = 8L),
-  f8e8m0fnu = list(category = "float", bits = 8L),
-  f4e2m1fn = list(category = "float", bits = 4L),
   c64 = list(category = "complex", bits = 64L),
   c128 = list(category = "complex", bits = 128L)
 )

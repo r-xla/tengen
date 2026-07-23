@@ -1,57 +1,99 @@
-test_that("dtype constructors work", {
-  expect_s3_class(BooleanType(), "DataType")
-  expect_s3_class(IntegerType(32), "DataType")
-  expect_s3_class(UIntegerType(8), "DataType")
-  expect_s3_class(FloatType(32), "DataType")
+dtype_names <- c(
+  "bool",
+  "i2", "i4", "i8", "i16", "i32", "i64",
+  "ui2", "ui4", "ui8", "ui16", "ui32", "ui64",
+  "f16", "bf16", "f32", "f64",
+  "f8e5m2", "f8e4m3fn", "f8e4m3b11fnuz", "f8e5m2fnuz", "f8e4m3fnuz",
+  "f8e4m3", "f8e3m4", "f8e8m0fnu",
+  "f4e2m1fn",
+  "c64", "c128"
+)
+
+test_that("as_dtype covers every member and round-trips its name", {
+  for (name in dtype_names) {
+    dt <- as_dtype(name)
+    expect_s3_class(dt, "DataType")
+    expect_identical(as.character(dt), name)
+    expect_true(is_dtype(dt))
+  }
 })
 
-test_that("DataType equality", {
-  expect_true(BooleanType() == BooleanType())
-  expect_false(BooleanType() != BooleanType())
-
-  expect_true(IntegerType(32) == IntegerType(32))
-  expect_false(IntegerType(32) != IntegerType(32))
-  expect_false(IntegerType(32) == IntegerType(64))
-  expect_true(IntegerType(32) != IntegerType(64))
-
-  expect_true(UIntegerType(32) == UIntegerType(32))
-  expect_false(UIntegerType(32) != UIntegerType(32))
-  expect_false(UIntegerType(32) == UIntegerType(64))
-  expect_true(UIntegerType(32) != UIntegerType(64))
-
-  expect_true(FloatType(32) == FloatType(32))
-  expect_false(FloatType(32) != FloatType(32))
-  expect_false(FloatType(32) == FloatType(64))
-  expect_true(FloatType(32) != FloatType(64))
-
-  expect_false(IntegerType(32) == FloatType(32))
-  expect_true(IntegerType(32) != FloatType(32))
-  expect_false(BooleanType() == IntegerType(32))
+test_that("as_dtype returns singletons", {
+  expect_identical(as_dtype("f32"), as_dtype("f32"))
+  expect_identical(as_dtype(as_dtype("i8")), as_dtype("i8"))
 })
 
-test_that("DataType comparison with character", {
-  expect_true(FloatType(32) == "f32")
-  expect_true("f32" == FloatType(32))
-  expect_false(FloatType(32) != "f32")
-  expect_false("f32" != FloatType(32))
+test_that("bool aliases", {
+  expect_identical(as_dtype("pred"), as_dtype("bool"))
+  expect_identical(as_dtype("i1"), as_dtype("bool"))
+})
 
-  expect_false(FloatType(32) == "f64")
-  expect_false("f64" == FloatType(32))
-  expect_true(FloatType(32) != "f64")
-  expect_true("f64" != FloatType(32))
+test_that("as_dtype rejects unknown names and non-strings", {
+  expect_error(as_dtype("f128"), "Unsupported dtype")
+  expect_error(as_dtype("token"), "Unsupported dtype")
+  expect_error(as_dtype(32L), "Cannot convert")
+  expect_error(as_dtype(c("f32", "f64")))
+})
 
-  expect_true(IntegerType(32) == "i32")
-  expect_true("i32" == IntegerType(32))
-  expect_false(IntegerType(32) == "i64")
+test_that("dtype_bits", {
+  expect_identical(dtype_bits(as_dtype("bool")), 1L)
+  expect_identical(dtype_bits(as_dtype("i2")), 2L)
+  expect_identical(dtype_bits(as_dtype("ui64")), 64L)
+  expect_identical(dtype_bits(as_dtype("f16")), 16L)
+  expect_identical(dtype_bits(as_dtype("bf16")), 16L)
+  expect_identical(dtype_bits(as_dtype("f8e4m3fn")), 8L)
+  expect_identical(dtype_bits(as_dtype("f4e2m1fn")), 4L)
+  expect_identical(dtype_bits(as_dtype("c64")), 64L)
+  expect_identical(dtype_bits(as_dtype("c128")), 128L)
+  expect_error(dtype_bits("f32"), "DataType")
+})
 
-  expect_true(UIntegerType(16) == "ui16")
-  expect_true("ui16" == UIntegerType(16))
-  expect_false(UIntegerType(16) == "ui32")
+test_that("category predicates", {
+  expect_true(is_dtype_bool(as_dtype("bool")))
+  expect_true(is_dtype_int(as_dtype("i32")))
+  expect_true(is_dtype_uint(as_dtype("ui8")))
+  expect_true(is_dtype_float(as_dtype("f64")))
+  expect_true(is_dtype_float(as_dtype("bf16")))
+  expect_true(is_dtype_float(as_dtype("f8e5m2")))
+  expect_true(is_dtype_float(as_dtype("f4e2m1fn")))
+  expect_true(is_dtype_complex(as_dtype("c128")))
 
-  expect_true(BooleanType() == "i1")
-  expect_true("i1" == BooleanType())
-  expect_false(BooleanType() == "f32")
+  expect_false(is_dtype_int(as_dtype("ui32")))
+  expect_false(is_dtype_uint(as_dtype("i32")))
+  expect_false(is_dtype_float(as_dtype("i32")))
+  expect_false(is_dtype_bool(as_dtype("i8")))
+  expect_false(is_dtype_complex(as_dtype("f64")))
 
-  expect_false(FloatType(32) == "i32")
-  expect_false("i32" == FloatType(32))
+  expect_error(is_dtype_float("f32"), "DataType")
+})
+
+test_that("equality and inequality", {
+  expect_true(as_dtype("f32") == as_dtype("f32"))
+  expect_false(as_dtype("f32") == as_dtype("f64"))
+  expect_true(as_dtype("f32") != as_dtype("f64"))
+  expect_false(as_dtype("f16") == as_dtype("bf16"))
+})
+
+test_that("equality with character", {
+  expect_true(as_dtype("f32") == "f32")
+  expect_true("f32" == as_dtype("f32"))
+  expect_false(as_dtype("f32") != "f32")
+  expect_false(as_dtype("f32") == "f64")
+  expect_true(as_dtype("bool") == "i1")
+  expect_true(as_dtype("bool") == "pred")
+  expect_true("i1" == as_dtype("bool"))
+  expect_false(as_dtype("bool") == "f32")
+})
+
+test_that("print and cli_format", {
+  expect_output(print(as_dtype("f32")), "<f32>", fixed = TRUE)
+  expect_output(print(as_dtype("bool")), "<bool>", fixed = TRUE)
+  expect_identical(cli::cli_format(as_dtype("bf16")), "bf16")
+})
+
+test_that("old constructors are gone", {
+  expect_false(exists("FloatType"))
+  expect_false(exists("IntegerType"))
+  expect_false(exists("UIntegerType"))
+  expect_false(exists("BooleanType"))
 })

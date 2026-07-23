@@ -2,24 +2,26 @@
 % Please edit documentation in R/types.R
 \name{DataType}
 \alias{DataType}
-\title{DataType Base Class}
+\title{DataType}
 \description{
-\code{DataType} is the parent S3 class for all tensor data types.
-All data type classes inherit from \code{DataType}, enabling cross-type
-comparisons with \code{==} and \code{!=} operators.
-
-The specific data type classes are:
+\code{DataType} is the S3 class representing a tensor element type.
+It is an enum: one singleton object per supported dtype, wrapping the
+canonical dtype string. The members cover every value type of the PJRT
+C API (\code{PJRT_Buffer_Type}), except \code{TOKEN}:
 \itemize{
-\item \code{\link[=BooleanType]{BooleanType()}} - Boolean (i1)
-\item \code{\link[=IntegerType]{IntegerType()}} - Signed integers (i8, i16, i32, i64)
-\item \code{\link[=UIntegerType]{UIntegerType()}} - Unsigned integers (ui8, ui16, ui32, ui64)
-\item \code{\link[=FloatType]{FloatType()}} - Floating point (f32, f64)
+\item boolean: \code{bool}
+\item signed integers: \code{i2}, \code{i4}, \code{i8}, \code{i16}, \code{i32}, \code{i64}
+\item unsigned integers: \code{ui2}, \code{ui4}, \code{ui8}, \code{ui16}, \code{ui32}, \code{ui64}
+\item floats: \code{f16}, \code{bf16}, \code{f32}, \code{f64}
+\item 8-bit floats: \code{f8e5m2}, \code{f8e4m3fn}, \code{f8e4m3b11fnuz}, \code{f8e5m2fnuz},
+\code{f8e4m3fnuz}, \code{f8e4m3}, \code{f8e3m4}, \code{f8e8m0fnu}
+\item 4-bit floats: \code{f4e2m1fn}
+\item complex: \code{c64}, \code{c128}
 }
-}
-\details{
-This is a virtual base class - you cannot create instances directly.
-Use the specific type constructors instead.
+
+Construct a \code{DataType} with \code{\link[=as_dtype]{as_dtype()}}. Inspect it with \code{\link[=dtype_bits]{dtype_bits()}}
+and the \code{\link[=is_dtype_float]{is_dtype_float()}} family of predicates.
 }
 \seealso{
-\code{\link[=BooleanType]{BooleanType()}}, \code{\link[=IntegerType]{IntegerType()}}, \code{\link[=UIntegerType]{UIntegerType()}}, \code{\link[=FloatType]{FloatType()}}
+\code{\link[=as_dtype]{as_dtype()}}, \code{\link[=dtype_bits]{dtype_bits()}}, \code{\link[=is_dtype_float]{is_dtype_float()}}
 }

@@ -8,12 +8,12 @@ as_dtype(x)
 }
 \arguments{
 \item{x}{(any)\cr
-Object to convert.
-Can currently be a string (e.g. \code{"i1"}, \code{"i32"}, \code{"f32"}, ...) or a \code{\link{DataType}} object.}
+A dtype string (e.g. \code{"f32"}, \code{"i64"}, \code{"bool"}; the aliases \code{"pred"}
+and \code{"i1"} map to \code{"bool"}) or a \code{\link{DataType}} object.}
 }
 \value{
 \code{DataType}
 }
 \description{
-Convert to DataType.
+Convert to \code{\link{DataType}}.
 }

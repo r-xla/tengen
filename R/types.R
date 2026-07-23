@@ -2,150 +2,101 @@
 #' @importFrom cli cli_abort
 NULL
 
-#' DataType Base Class
+#' DataType
 #'
 #' @description
-#' `DataType` is the parent S3 class for all tensor data types.
-#' All data type classes inherit from `DataType`, enabling cross-type
-#' comparisons with `==` and `!=` operators.
+#' `DataType` is the S3 class representing a tensor element type.
+#' It is an enum: one singleton object per supported dtype, wrapping the
+#' canonical dtype string. The members cover every value type of the PJRT
+#' C API (`PJRT_Buffer_Type`), except `TOKEN`:
 #'
-#' The specific data type classes are:
-#' - [BooleanType()] - Boolean (i1)
-#' - [IntegerType()] - Signed integers (i8, i16, i32, i64)
-#' - [UIntegerType()] - Unsigned integers (ui8, ui16, ui32, ui64)
-#' - [FloatType()] - Floating point (f32, f64)
+#' - boolean: `bool`
+#' - signed integers: `i2`, `i4`, `i8`, `i16`, `i32`, `i64`
+#' - unsigned integers: `ui2`, `ui4`, `ui8`, `ui16`, `ui32`, `ui64`
+#' - floats: `f16`, `bf16`, `f32`, `f64`
+#' - 8-bit floats: `f8e5m2`, `f8e4m3fn`, `f8e4m3b11fnuz`, `f8e5m2fnuz`,
+#'   `f8e4m3fnuz`, `f8e4m3`, `f8e3m4`, `f8e8m0fnu`
+#' - 4-bit floats: `f4e2m1fn`
+#' - complex: `c64`, `c128`
 #'
-#' @details
-#' This is a virtual base class - you cannot create instances directly.
-#' Use the specific type constructors instead.
+#' Construct a `DataType` with [as_dtype()]. Inspect it with [dtype_bits()]
+#' and the [is_dtype_float()] family of predicates.
 #'
-#' @seealso [BooleanType()], [IntegerType()], [UIntegerType()], [FloatType()]
+#' @seealso [as_dtype()], [dtype_bits()], [is_dtype_float()]
 #' @name DataType
 NULL
 
-#' @export
-`==.DataType` <- function(e1, e2) {
-  if (is.character(e1)) {
-    e1 <- as_dtype(e1)
-  }
-  if (is.character(e2)) {
-    e2 <- as_dtype(e2)
-  }
+# One entry per dtype: category ("bool"/"int"/"uint"/"float"/"complex") and
+# bit width. Order and spelling define the enum.
+dtype_info <- list(
+  bool = list(category = "bool", bits = 1L),
+  i2 = list(category = "int", bits = 2L),
+  i4 = list(category = "int", bits = 4L),
+  i8 = list(category = "int", bits = 8L),
+  i16 = list(category = "int", bits = 16L),
+  i32 = list(category = "int", bits = 32L),
+  i64 = list(category = "int", bits = 64L),
+  ui2 = list(category = "uint", bits = 2L),
+  ui4 = list(category = "uint", bits = 4L),
+  ui8 = list(category = "uint", bits = 8L),
+  ui16 = list(category = "uint", bits = 16L),
+  ui32 = list(category = "uint", bits = 32L),
+  ui64 = list(category = "uint", bits = 64L),
+  f16 = list(category = "float", bits = 16L),
+  bf16 = list(category = "float", bits = 16L),
+  f32 = list(category = "float", bits = 32L),
+  f64 = list(category = "float", bits = 64L),
+  f8e5m2 = list(category = "float", bits = 8L),
+  f8e4m3fn = list(category = "float", bits = 8L),
+  f8e4m3b11fnuz = list(category = "float", bits = 8L),
+  f8e5m2fnuz = list(category = "float", bits = 8L),
+  f8e4m3fnuz = list(category = "float", bits = 8L),
+  f8e4m3 = list(category = "float", bits = 8L),
+  f8e3m4 = list(category = "float", bits = 8L),
+  f8e8m0fnu = list(category = "float", bits = 8L),
+  f4e2m1fn = list(category = "float", bits = 4L),
+  c64 = list(category = "complex", bits = 64L),
+  c128 = list(category = "complex", bits = 128L)
+)
 
-  # If classes don't match, types are not equal
-  if (!identical(class(e1)[1], class(e2)[1])) {
-    return(FALSE)
-  }
+dtype_categories <- vapply(dtype_info, `[[`, character(1L), "category")
+dtype_bits_table <- vapply(dtype_info, `[[`, integer(1L), "bits")
+dtype_singletons <- sapply(
+  names(dtype_info),
+  function(name) structure(name, class = "DataType"),
+  simplify = FALSE
+)
+dtype_aliases <- c(pred = "bool", i1 = "bool")
 
-  # BooleanType has no value field
-  if (inherits(e1, "BooleanType")) {
-    return(TRUE)
-  }
+`%??%` <- function(x, y) if (is.null(x)) y else x
 
-  # For IntegerType, UIntegerType, FloatType - compare values
-  identical(e1$value, e2$value)
-}
-
-#' @exportS3Method cli::cli_format
-cli_format.DataType <- function(x, style = NULL, ...) {
-  as.character(x)
-}
-
-#' @export
-`!=.DataType` <- function(e1, e2) {
-  !(e1 == e2) # nolint
-}
-
-#' @title BooleanType
+#' @title Convert to DataType
 #' @description
-#' Represents the boolean type.
-#' @return `BooleanType`
+#' Convert to [`DataType`].
+#' @param x (any)\cr
+#'   A dtype string (e.g. `"f32"`, `"i64"`, `"bool"`; the aliases `"pred"`
+#'   and `"i1"` map to `"bool"`) or a [`DataType`] object.
+#' @return `DataType`
 #' @export
-BooleanType <- function() {
-  structure(list(), class = c("BooleanType", "DataType"))
+as_dtype <- function(x) {
+  UseMethod("as_dtype")
 }
 
 #' @export
-print.DataType <- function(x, ...) {
-  cat("<", as.character(x), ">\n", sep = "")
-  invisible(x)
-}
-
-#' @title IntegerType (signed)
-#' @description
-#' Represents a signed integer type with a given bit width.
-#' @param value (`integer(1)`)
-#' @return `IntegerType`
-#' @export
-IntegerType <- function(value) {
-  value <- as.integer(value)
-  checkmate::assert_int(value)
-  if (!(value %in% c(8L, 16L, 32L, 64L))) {
-    cli_abort("Unsupported signed integer bit width: {value}")
-  }
-
-  structure(
-    list(value = value),
-    class = c("IntegerType", "DataType")
-  )
-}
-
-#' @title UIntegerType
-#' @description
-#' Represents an unsigned integer type with a given bit width.
-#' @param value (`integer(1)`)
-#' @return `UIntegerType`
-#' @export
-UIntegerType <- function(value) {
-  value <- as.integer(value)
-  checkmate::assert_int(value)
-  if (!(value %in% c(8L, 16L, 32L, 64L))) {
-    cli_abort("Unsupported unsigned integer bit width: {value}")
-  }
-
-  structure(
-    list(value = value),
-    class = c("UIntegerType", "DataType")
-  )
-}
-
-#' @title FloatType
-#' @description
-#' Represents a floating point type with a given bit width.
-#' @param value (`integer(1)`)
-#' @return `FloatType`
-#' @export
-FloatType <- function(value) {
-  value <- as.integer(value)
-  checkmate::assert_int(value)
-  if (!(value %in% c(32L, 64L))) {
-    cli_abort("Unsupported float bit width: {value}")
-  }
-
-  structure(
-    list(value = value),
-    class = c("FloatType", "DataType")
-  )
+as_dtype.default <- function(x) {
+  cli_abort("Cannot convert {.cls {class(x)[1]}} to DataType")
 }
 
 #' @export
-as.character.BooleanType <- function(x, ...) {
-  "bool"
+as_dtype.DataType <- function(x) {
+  x
 }
 
 #' @export
-as.character.IntegerType <- function(x, ...) {
-  paste0("i", x$value)
-}
-
-#' @export
-as.character.UIntegerType <- function(x, ...) {
-  paste0("ui", x$value)
-}
-
-#' @export
-as.character.FloatType <- function(x, ...) {
-  paste0("f", x$value)
+as_dtype.character <- function(x) {
+  assert_string(x)
+  name <- if (x %in% names(dtype_aliases)) dtype_aliases[[x]] else x
+  dtype_singletons[[name]] %??% cli_abort("Unsupported dtype: {x}")
 }
 
 #' @title Is DataType
@@ -170,51 +121,99 @@ is_dtype <- function(x) {
 #' @export
 assert_dtype <- function(x, arg = rlang::caller_arg(x)) {
   if (!is_dtype(x)) {
-    cli_abort(
-      "{.arg {arg}} must be a DataType (BooleanType, IntegerType, UIntegerType, or FloatType)"
-    )
+    cli_abort("{.arg {arg}} must be a DataType")
   }
 }
 
-#' @title Convert to DataType
+#' @title Bit Width of a DataType
 #' @description
-#' Convert to DataType.
-#' @param x (any)\cr
-#'   Object to convert.
-#'   Can currently be a string (e.g. `"i1"`, `"i32"`, `"f32"`, ...) or a [`DataType`] object.
-#' @return `DataType`
+#' The number of bits of one element of the given [`DataType`].
+#' For `bool` this is `1`; for complex types it is the total width of the
+#' element (`c64` -> `64`).
+#' @param x ([`DataType`])
+#' @return `integer(1)`
 #' @export
-as_dtype <- function(x) {
-  UseMethod("as_dtype")
+dtype_bits <- function(x) {
+  assert_dtype(x)
+  dtype_bits_table[[unclass(x)]]
+}
+
+dtype_category <- function(x) {
+  assert_dtype(x)
+  dtype_categories[[unclass(x)]]
+}
+
+#' @title DataType Category Predicates
+#' @description
+#' Check which category a [`DataType`] belongs to:
+#' - `is_dtype_float()`: floating point, including `bf16` and the
+#'   `f8*`/`f4*` types.
+#' - `is_dtype_int()`: signed integers.
+#' - `is_dtype_uint()`: unsigned integers.
+#' - `is_dtype_bool()`: `bool`.
+#' - `is_dtype_complex()`: `c64`, `c128`.
+#' @param x ([`DataType`])
+#' @return `logical(1)`
+#' @export
+is_dtype_float <- function(x) {
+  dtype_category(x) == "float"
+}
+
+#' @rdname is_dtype_float
+#' @export
+is_dtype_int <- function(x) {
+  dtype_category(x) == "int"
+}
+
+#' @rdname is_dtype_float
+#' @export
+is_dtype_uint <- function(x) {
+  dtype_category(x) == "uint"
+}
+
+#' @rdname is_dtype_float
+#' @export
+is_dtype_bool <- function(x) {
+  dtype_category(x) == "bool"
+}
+
+#' @rdname is_dtype_float
+#' @export
+is_dtype_complex <- function(x) {
+  dtype_category(x) == "complex"
 }
 
 #' @export
-as_dtype.default <- function(x) {
-  cli_abort("Cannot convert {.cls {class(x)[1]}} to DataType")
+`==.DataType` <- function(e1, e2) {
+  if (is.character(e1)) {
+    e1 <- as_dtype(e1)
+  }
+  if (is.character(e2)) {
+    e2 <- as_dtype(e2)
+  }
+  if (!is_dtype(e1) || !is_dtype(e2)) {
+    return(FALSE)
+  }
+  unclass(e1) == unclass(e2)
 }
 
 #' @export
-as_dtype.DataType <- function(x) {
-  x
+`!=.DataType` <- function(e1, e2) {
+  !(e1 == e2) # nolint
 }
 
-dtype_map <- list(
-  "pred" = BooleanType(),
-  "bool" = BooleanType(),
-  "i1" = BooleanType(),
-  "i8" = IntegerType(8L),
-  "i16" = IntegerType(16L),
-  "i32" = IntegerType(32L),
-  "i64" = IntegerType(64L),
-  "ui8" = UIntegerType(8L),
-  "ui16" = UIntegerType(16L),
-  "ui32" = UIntegerType(32L),
-  "ui64" = UIntegerType(64L),
-  "f32" = FloatType(32L),
-  "f64" = FloatType(64L)
-)
+#' @export
+as.character.DataType <- function(x, ...) {
+  as.character(unclass(x))
+}
 
 #' @export
-as_dtype.character <- function(x) {
-  dtype_map[[x]] %??% cli_abort("Unsupported dtype: {x}")
+print.DataType <- function(x, ...) {
+  cat("<", as.character(x), ">\n", sep = "")
+  invisible(x)
+}
+
+#' @exportS3Method cli::cli_format
+cli_format.DataType <- function(x, style = NULL, ...) {
+  as.character(x)
 }

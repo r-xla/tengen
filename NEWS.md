@@ -1,5 +1,8 @@
 # tengen (development version)
 
+* Renamed `ndims()` to `naxes()`.
+* Added `axes()` returning the axis indices of a tensor, i.e. `seq_len(naxes(x))`.
+
 # tengen 0.2.0
 
 * Added the `DataType` class hierarchy: `BooleanType`, `IntegerType`,

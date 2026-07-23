@@ -1,4 +1,4 @@
-# tengen 0.3.0
+# tengen (development version)
 
 * breaking: the `DataType` hierarchy (`BooleanType()`, `IntegerType()`,
   `UIntegerType()`, `FloatType()`) is replaced by a single enum-style

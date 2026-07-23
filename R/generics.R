@@ -77,17 +77,6 @@ naxes <- function(x) {
   length(shape(x))
 }
 
-#' @title Axes
-#' @description
-#' Get the axes of a tensor, i.e. `seq_len(naxes(x))`.
-#' @param x (any)\cr
-#'   Object.
-#' @return (`integer()`)
-#' @export
-axes <- function(x) {
-  seq_len(naxes(x))
-}
-
 #' @title Number of Elements
 #' @description
 #' Get the number of elements of a tensor.

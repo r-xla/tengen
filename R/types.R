@@ -1,5 +1,6 @@
 #' @import checkmate
 #' @importFrom cli cli_abort
+#' @importFrom utils hashtab sethash gethash
 NULL
 
 #' DataType
@@ -43,16 +44,37 @@ dtype_info <- list(
   c128 = list(category = "complex", bits = 128L)
 )
 
-dtype_categories <- vapply(dtype_info, `[[`, character(1L), "category")
-dtype_bits_table <- vapply(dtype_info, `[[`, integer(1L), "bits")
-dtype_singletons <- sapply(
-  names(dtype_info),
-  function(name) structure(name, class = "DataType"),
-  simplify = FALSE
-)
-dtype_aliases <- c(pred = "bool", i1 = "bool")
+# Hash table mapping every accepted dtype spelling (the canonical names plus
+# the "pred"/"i1" aliases for "bool") to list(object, category, bits), where
+# `object` is the singleton DataType. Built in .onLoad(): hashtabs must not be
+# stored in the namespace's lazy-load database.
+dtype_table <- NULL
+
+build_dtype_table <- function() {
+  table <- hashtab(size = length(dtype_info) + 2L)
+  for (name in names(dtype_info)) {
+    info <- dtype_info[[name]]
+    sethash(table, name, list(
+      object = structure(name, class = "DataType"),
+      category = info$category,
+      bits = info$bits
+    ))
+  }
+  for (alias in c("pred", "i1")) {
+    sethash(table, alias, gethash(table, "bool"))
+  }
+  table
+}
 
 `%??%` <- function(x, y) if (is.null(x)) y else x
+
+# The table entry for a DataType; errors on names outside the enum (which can
+# only be reached via hand-crafted objects).
+dtype_entry <- function(x) {
+  assert_dtype(x)
+  gethash(dtype_table, unclass(x)) %??%
+    cli_abort("Unknown dtype: {unclass(x)}")
+}
 
 #' @title Convert to DataType
 #' @description
@@ -79,8 +101,8 @@ as_dtype.DataType <- function(x) {
 #' @export
 as_dtype.character <- function(x) {
   assert_string(x)
-  name <- if (x %in% names(dtype_aliases)) dtype_aliases[[x]] else x
-  dtype_singletons[[name]] %??% cli_abort("Unsupported dtype: {x}")
+  entry <- gethash(dtype_table, x) %??% cli_abort("Unsupported dtype: {x}")
+  entry$object
 }
 
 #' @title Is DataType
@@ -118,20 +140,17 @@ assert_dtype <- function(x, arg = rlang::caller_arg(x)) {
 #' @return `integer(1)`
 #' @export
 dtype_bits <- function(x) {
-  assert_dtype(x)
-  dtype_bits_table[[unclass(x)]]
+  dtype_entry(x)$bits
 }
 
 dtype_category <- function(x) {
-  assert_dtype(x)
-  dtype_categories[[unclass(x)]]
+  dtype_entry(x)$category
 }
 
 #' @title DataType Category Predicates
 #' @description
 #' Check which category a [`DataType`] belongs to:
-#' - `is_dtype_float()`: floating point, including `bf16` and the
-#'   `f8*`/`f4*` types.
+#' - `is_dtype_float()`: floating point, including `bf16`.
 #' - `is_dtype_int()`: signed integers.
 #' - `is_dtype_uint()`: unsigned integers.
 #' - `is_dtype_bool()`: `bool`.

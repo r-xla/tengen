@@ -27,8 +27,7 @@ is_dtype_complex(x)
 \description{
 Check which category a \code{\link{DataType}} belongs to:
 \itemize{
-\item \code{is_dtype_float()}: floating point, including \code{bf16} and the
-\verb{f8*}/\verb{f4*} types.
+\item \code{is_dtype_float()}: floating point, including \code{bf16}.
 \item \code{is_dtype_int()}: signed integers.
 \item \code{is_dtype_uint()}: unsigned integers.
 \item \code{is_dtype_bool()}: \code{bool}.
